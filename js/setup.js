@@ -11,6 +11,12 @@ const setupOpen = document.querySelector(`.setup-open`);
 const setupClose = document.querySelector(`.setup-close`);
 const setup = document.querySelector(`.setup`);
 
+const setupWizardForm = document.querySelector(`.setup-wizard-form`);
+const wizardCoat = document.querySelector(`.setup-wizard .wizard-coat`);
+const wizardEyes = document.querySelector(`.setup-wizard .wizard-eyes`);
+const setupFireball = document.querySelector(`.setup-fireball-wrap`);
+const setupInputUsername = setupWizardForm.querySelector(`input[name=username]`);
+
 const similarListElement = setup.querySelector(`.setup-similar-list`);
 const similarWizardTemplate = document.querySelector(`#similar-wizard-template`)
 .content
@@ -52,14 +58,25 @@ const onPopupEscPress = function (evt) {
   }
 };
 
+const errorPopup = function (inputName, message) {
+  inputName.setCustomValidity(message);
+}
+
 const openPopup = function () {
   setup.classList.remove(`hidden`);
   document.addEventListener(`keydown`, onPopupEscPress);
 };
 
 const closePopup = function () {
-  setup.classList.add(`hidden`);
-  document.removeEventListener(`keydown`, onPopupEscPress);
+  let message = ``;
+  if (document.activeElement == setupInputUsername) {
+    message = `Кажется, Вы не закончили что-то вводить`;
+  }
+  else {
+    setup.classList.add(`hidden`);
+    document.removeEventListener(`keydown`, onPopupEscPress);
+  }
+  errorPopup(setupInputUsername, message)
 };
 
 setupOpen.addEventListener(`click`, function () {
@@ -83,10 +100,6 @@ setupClose.addEventListener(`keydown`, function (evt) {
 });
 
 // Меняет цвет мантии, глаз и фаербола
-const setupWizardForm = document.querySelector(`.setup-wizard-form`);
-const wizardCoat = document.querySelector(`.setup-wizard .wizard-coat`);
-const wizardEyes = document.querySelector(`.setup-wizard .wizard-eyes`);
-const setupFireball = document.querySelector(`.setup-fireball-wrap`);
 
 const wizardCoatClickHandler = function () {
   let newCoatColor = COAT_COLORS[getRandomInt(0, COAT_COLORS.length)];
