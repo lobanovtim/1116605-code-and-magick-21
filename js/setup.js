@@ -60,7 +60,7 @@ const onPopupEscPress = function (evt) {
 
 const errorPopup = function (inputName, message) {
   inputName.setCustomValidity(message);
-}
+};
 
 const openPopup = function () {
   setup.classList.remove(`hidden`);
@@ -69,14 +69,13 @@ const openPopup = function () {
 
 const closePopup = function () {
   let message = ``;
-  if (document.activeElement == setupInputUsername) {
+  if (document.activeElement === setupInputUsername) {
     message = `Кажется, Вы не закончили что-то вводить`;
-  }
-  else {
+  } else {
     setup.classList.add(`hidden`);
     document.removeEventListener(`keydown`, onPopupEscPress);
   }
-  errorPopup(setupInputUsername, message)
+  errorPopup(setupInputUsername, message);
 };
 
 setupOpen.addEventListener(`click`, function () {
